@@ -81,17 +81,35 @@ imshow(img2,[]);
 
 imshow(post_segment_adjustment(img2),[]);
 
-img3 = h5read( '/Users/amitra2/Documents/CompBioRice17/Homework5/hw5-mitraakash/Cell.h5', '/exported_data');
-img3 = squeeze(img3);
-imshow(img3,[]);
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-imshow(post_segment_adjustment(img3),[]);
+figure;
+img3 = imread('segmentationData/cellPhaseContrast.png');
+imshow(img3, []);
+mask1 = img3 < 120;
+imshow(mask1, []);
+
+CC = bwconncomp(mask1);
+stats = regionprops(CC, 'Area');
+area = (stats.Area);
+s = round(1.2*sqrt(mean(area))/pi);
+eroded = imerode(mask1, strel('disk',s));
+outside = ~imdilate(mask1, strel('disk',1));
+basin = imcomplement(bwdist(outside));
+basin = imimposemin(basin,eroded|outside);
+new_image = watershed(basin);
+new_image = new_image > 2;
+imshow(new_image, [])
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 img4 = h5read( '/Users/amitra2/Documents/CompBioRice17/Homework5/hw5-mitraakash/Worm.h5', '/exported_data');
 img4 = squeeze(img4);
 imshow(img4,[]);
 
 imshow(post_segment_adjustment(img4),[]);
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 img5 = h5read( '/Users/amitra2/Documents/CompBioRice17/Homework5/hw5-mitraakash/Yeast.h5', '/exported_data');
 img5 = squeeze(img5);
