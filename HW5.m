@@ -1,6 +1,20 @@
 % Akash Mitra
 % am132
 
+% GB comments:
+%when reading in the h5file. I don’t need your filepath since I do not save my files the same way as you. Providing only the filename should be sufficient. 
+%1a 70 questions asks to save an image in the repository. 
+%1b 100
+%1c 100	
+%1d 100 Will give credit but I think the segmentation could be done better. Try to use bwareaopen to remove saltnpepper background. And try to use watershed to remove overlapping masks. 
+%2yeast: 90. At the end, I used imerode to reduce the masks to get better separation of the objects. 
+%2worm: 100
+%2bacteria: 100 
+%2phase: 100
+%Overall: 95
+
+
+
 %HW5
 
 % Note. You can use the code readIlastikFile.m provided in the repository to read the output from
